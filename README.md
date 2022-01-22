@@ -1,8 +1,8 @@
 # urban_policy_nlp
 Repo for NLP sentiment analysis of open text field input from sustainable development survey data.
 
-### author: Emily Robitschek 
-### contact: erobitschek@student.ethz.ch
+## author: Emily Robitschek 
+## contact: erobitschek@ethz.ch
 
 # Data 
 
@@ -12,7 +12,11 @@ The dataset that will be used for this project comes from the Spatial and Urban 
 The research question is: "Can the information from this text field be analyzed in a systematic way that shows a) concordance with some key elements assessed with the survey design and b) any new insights about why respondents respond the way they do?"
 
 # Code
-In the "code" folder, there are two notebooks (one more to be added once analysis is finalized)
+In the "code" folder, there are two notebooks (one more to be added once analysis is finalized): 
+    1) survey_preprocess shows the process and rational behind the data preprocessing
+    2) survey_wordcloud includes code to generate words clouds from subsets of the survey responses
+    3) survey_topicmodel includes the topic modelling associated with this dataset
+    4) survey_relatio will be updated to show the results of narrative extraction on the text data (TBD)
 
 
 # Other useful links and resources:
@@ -32,9 +36,12 @@ Wordclouds
 - wordcloud package: https://amueller.github.io/word_cloud/
 
 Topic modelling: 
+- https://medium.com/@kurtsenol21/topic-modeling-lda-mallet-implementation-in-python-part-1-c493a5297ad2 (useful info for preprocessing)
+- https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/ (largely based on this approach)
 - https://anaconda.org/anaconda/gensim
 - https://anaconda.org/conda-forge/pyldavis
 - https://medium.com/analytics-vidhya/topic-modeling-using-gensim-lda-in-python-48eaa2344920
+- 
 
 Narrative discovery: 
 - relatio github: https://github.com/relatio-nlp/relatio
