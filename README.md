@@ -8,10 +8,10 @@ Repo for NLP analysis of open text field input from sustainable development surv
 
 The dataset that will be used for this project comes from the Spatial and Urban Policy Research (SPUR) group at ETH. This group conducted a survey on attitudes towards urban densification policies across several large cities, including: Berlin, Chicago, Los Angeles, New York City, London and Paris. As a part of this survey, there is also an open text field answer to the question "If you would like, we would be very grateful if you could briefly describe here why you generally decided in favor of or against certain proposals". For the initial stage of this project, I will analyze the open text responses from this short answer field for the cities where the survey was conducted in English (Chicago, Los Angeles, New York City, and London). 
 
-More information on the publicly available dataset here: 
--- general info (german): https://irl.ethz.ch/research/forschung/housing-situation.html
--- general info (english) with links to data briefs: https://spur.ethz.ch/research/housing-situation.html
--- dataset and codebook: https://www.research-collection.ethz.ch/handle/20.500.11850/513683
+More information on the publicly available dataset at these links: 
+    - general info (german): https://irl.ethz.ch/research/forschung/housing-situation.html
+    - general info (english) with links to data briefs: https://spur.ethz.ch/research/housing-situation.html
+    - dataset and codebook: https://www.research-collection.ethz.ch/handle/20.500.11850/513683
 
 # Goal
 The research question is: "Can the information from this text field be analyzed in a systematic way that shows a) concordance with some key elements assessed with the survey design and b) any new insights about why respondents respond the way they do?"
