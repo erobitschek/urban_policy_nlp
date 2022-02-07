@@ -16,7 +16,8 @@ In the "code" folder, there are two notebooks (one more to be added once analysi
     1) survey_preprocess shows the process and rational behind the data preprocessing
     2) survey_wordcloud includes code to generate words clouds from subsets of the survey responses
     3) survey_topicmodel includes the topic modelling associated with this dataset
-    4) survey_relatio will be updated to show the results of narrative extraction on the text data (TBD)
+    4) survey_relatio extracts narratives from the text responses to complement the topic modelling approach
+    5) survey_linearmodels will integrate the results from the topicmodel to see if a predictive model can be based upon the topic modelling (TBD)
 
 
 # Other useful links and resources:
