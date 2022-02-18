@@ -1,4 +1,4 @@
-name: relatio_env
+name: urban_nlp_env
 channels:
   - conda-forge
   - defaults
