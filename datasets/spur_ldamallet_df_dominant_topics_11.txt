@@ -1,0 +1,12 @@
+	Dominant_Topic	Topic_Keywords	Num_Documents	Perc_Documents
+0.0	4.0	resident, decide, choose, option, benefit, decision, opinion, agree, base, involve	935.0	0.1914
+1.0	0.0	good, neighborhood, feel, work, choice, reason, depend, pick, safe, rate	435.0	0.089
+2.0	10.0	people, live, city, lot, family, place, price, house, bad, property	455.0	0.0931
+3.0	3.0	make, thing, development, idea, great, time, favour, densification, infrastructure, year	426.0	0.0872
+4.0	0.0	good, neighborhood, feel, work, choice, reason, depend, pick, safe, rate	490.0	0.1003
+5.0	5.0	prefer, project, investor, profit, apartment, government, business, local, mixed_use, non_profit	368.0	0.0753
+6.0	3.0	make, thing, development, idea, great, time, favour, densification, infrastructure, year	355.0	0.0727
+7.0	8.0	area, high, environment, cost, pay, life, problem, space, quality, crime	455.0	0.0931
+8.0	0.0	good, neighborhood, feel, work, choice, reason, depend, pick, safe, rate	291.0	0.0596
+9.0	7.0	increase, density, population, low, percent, reduce, acceptable, double, oppose, reject	361.0	0.0739
+10.0	0.0	good, neighborhood, feel, work, choice, reason, depend, pick, safe, rate	315.0	0.0645
