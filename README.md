@@ -36,6 +36,16 @@ conda env create --file urban_nlp_env.yml
 conda activate urban_nlp_env
 ```
 
+Note: If ldamallet fails to run, it may be because you need to add the following lines to your ~/.zshrc or bash profile file:
+
+```
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+```
+
+Then restart your shell, activate the environment again and run the notebook at which point ldamallet should run. 
+
+
 # Other useful links and resources:
 
 ## Subject area
