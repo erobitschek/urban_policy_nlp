@@ -20,10 +20,14 @@ The research question is: "Can the information from this text field be analyzed 
 In the "code" folder, there are two notebooks (one more to be added once analysis is finalized): 
 1) survey_preprocess shows the process and rational behind the data preprocessing
 2) survey_wordcloud includes code to generate words clouds from subsets of the survey responses
-3) survey_topicmodel includes the topic modelling associated with this dataset
+3) survey_topicmodel includes the topic modelling associated with this dataset and some comparisons with other survey elements
 4) survey_relatio extracts narratives from the text responses to complement the topic modelling approach
-5) survey_linearmodels will integrate the results from the topicmodel to see if a predictive model can be based upon the topic modelling (TBD)
 
+# Datasets
+This folder contains datasets to run the code on and also ones related to the output from the LDA model in case there are any issues with reproducibility from that model in particular. 
+
+# Setup 
+To run any of the notebooks, first set up a virtual environment with conda (python=3.8.12) using the environment urban_nlp_env.yml file in this github repository.
 
 # Other useful links and resources:
 
