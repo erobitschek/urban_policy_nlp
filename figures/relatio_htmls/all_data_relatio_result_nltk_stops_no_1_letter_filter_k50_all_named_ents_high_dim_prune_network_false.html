@@ -1,0 +1,204 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 1000px;
+            height: 1000px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+        #loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 1000px;
+            height: 1000px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+<div id="loadingBar">
+    <div class="outerBorder">
+        <div id="text">0%</div>
+        <div id="border">
+            <div id="bar"></div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"hidden": false, "id": "landlord", "label": "landlord", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "rent", "label": "rent", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "proposal", "label": "proposal", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "community", "label": "community", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "people", "label": "people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "housing", "label": "housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "project", "label": "project", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population density", "label": "population density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "job", "label": "job", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit investor national international", "label": "profit investor national international", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit company domestic international", "label": "profit company domestic international", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "building", "label": "building", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "kind incentive neighborhood", "label": "kind incentive neighborhood", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit group", "label": "profit group", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "neighborhood change", "label": "neighborhood change", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit housing international national", "label": "profit housing international national", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "rent cap less rent increase attach building", "label": "rent cap less rent increase attach building", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit investor", "label": "profit investor", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "development", "label": "development", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "much need social housing", "label": "much need social housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "social housing", "label": "social housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "add crime homeless people", "label": "add crime homeless people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "neighborhood", "label": "neighborhood", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit organisation", "label": "profit organisation", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "concern issue tenant may", "label": "concern issue tenant may", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profit", "label": "profit", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "issue", "label": "issue", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "profitable investment", "label": "profitable investment", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "resident", "label": "resident", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "affordable housing", "label": "affordable housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "cap", "label": "cap", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "densification", "label": "densification", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "density exist neighborhood", "label": "density exist neighborhood", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "environment", "label": "environment", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "great population density", "label": "great population density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "help young local people get housing", "label": "help young local people get housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "increase population density", "label": "increase population density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "neglect concern issue tenant may", "label": "neglect concern issue tenant may", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "pro", "label": "pro", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "never perfect solution", "label": "never perfect solution", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "increase density", "label": "increase density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population", "label": "population", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "control", "label": "control", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "policy", "label": "policy", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "politician", "label": "politician", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "get money tax", "label": "get money tax", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "happens", "label": "happens", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "money", "label": "money", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "pollution", "label": "pollution", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "long time resident", "label": "long time resident", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "make neighborhood special", "label": "make neighborhood special", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "poor", "label": "poor", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "new development would go rich people", "label": "new development would go rich people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "poor people", "label": "poor people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "expansive rent", "label": "expansive rent", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "lot service", "label": "lot service", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "poorer people", "label": "poorer people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "help", "label": "help", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "poorer residence", "label": "poorer residence", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "massive strain facility doctor", "label": "massive strain facility doctor", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "international investor", "label": "international investor", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "community crowd nice", "label": "community crowd nice", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "grown small pace", "label": "grown small pace", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population density increase already crowd area", "label": "population density increase already crowd area", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "major issue", "label": "major issue", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population increase percent", "label": "population increase percent", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "cost", "label": "cost", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population mix", "label": "population mix", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "proximity large mosque", "label": "proximity large mosque", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "positive", "label": "positive", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "negative", "label": "negative", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "poverty", "label": "poverty", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "prefer", "label": "prefer", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "minimal growth density", "label": "minimal growth density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "presence apartment company cafe", "label": "presence apartment company cafe", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "job opportunity", "label": "job opportunity", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "presumably nonprofit financier", "label": "presumably nonprofit financier", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "housing available", "label": "housing available", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "increase wage housing ratio", "label": "increase wage housing ratio", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "new type people", "label": "new type people", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "job opportunity prosperity city", "label": "job opportunity prosperity city", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "mixture residential business", "label": "mixture residential business", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "criterion", "label": "criterion", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "decision make", "label": "decision make", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "density", "label": "density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "difficulty", "label": "difficulty", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "even bad", "label": "even bad", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "everyone", "label": "everyone", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "exodus wealthy tax payer city", "label": "exodus wealthy tax payer city", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "family individual home", "label": "family individual home", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "feel comfortable hopeful good new future", "label": "feel comfortable hopeful good new future", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "fix income", "label": "fix income", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "give people anything", "label": "give people anything", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "great resident involvement planning decision make", "label": "great resident involvement planning decision make", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "house", "label": "house", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "increase resident", "label": "increase resident", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "interest", "label": "interest", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "least percent affordability", "label": "least percent affordability", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "least percent affordable housing", "label": "least percent affordable housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "less public density increase", "label": "less public density increase", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "like could something", "label": "like could something", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "crime", "label": "crime", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "commitment affordable housing", "label": "commitment affordable housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "climate community", "label": "climate community", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "project make building high density", "label": "project make building high density", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "adequate parking", "label": "adequate parking", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "lot", "label": "lot", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population density staten island neighborhood", "label": "population density staten island neighborhood", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "population plan", "label": "population plan", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "rent price", "label": "rent price", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "rent value", "label": "rent value", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "settle boost small business activity", "label": "settle boost small business activity", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "young local people get housing", "label": "young local people get housing", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "project concept neighborhood", "label": "project concept neighborhood", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "value apartment", "label": "value apartment", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "project like", "label": "project like", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "traffic", "label": "traffic", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "property", "label": "property", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "market clearing price", "label": "market clearing price", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "climate change consideration", "label": "climate change consideration", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "property owner", "label": "property owner", "shape": "dot", "size": 10, "title": " "}, {"hidden": false, "id": "loophole", "label": "loophole", "shape": "dot", "size": 10, "title": " "}]);
+        edges = new vis.DataSet([{"arrows": "to", "color": null, "from": "landlord", "hidden": false, "label": "raise", "title": " ", "to": "rent", "weight": 3}, {"arrows": "to", "color": null, "from": "landlord", "hidden": false, "label": "increase", "title": " ", "to": "rent", "weight": 2}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "benefit", "title": " ", "to": "community", "weight": 3}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "community", "weight": 2}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "fit", "title": " ", "to": "criterion", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "give", "title": " ", "to": "decision make", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "double", "title": " ", "to": "density", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "development", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "difficulty", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "environment", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "make", "title": " ", "to": "even bad", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "benefit", "title": " ", "to": "everyone", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "increase", "title": " ", "to": "exodus wealthy tax payer city", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "family individual home", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "make", "title": " ", "to": "feel comfortable hopeful good new future", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "require", "title": " ", "to": "fix income", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "try", "title": " ", "to": "give people anything", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "favor", "title": " ", "to": "great resident involvement planning decision make", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "build", "title": " ", "to": "house", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "want", "title": " ", "to": "increase population density", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "would", "title": " ", "to": "increase resident", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "fit", "title": " ", "to": "interest", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "work", "title": " ", "to": "issue", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "offer", "title": " ", "to": "least percent affordability", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "guaranteed", "title": " ", "to": "least percent affordable housing", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "offer", "title": " ", "to": "less public density increase", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "felt", "title": " ", "to": "like could something", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "cause", "title": " ", "to": "crime", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "make", "title": " ", "to": "commitment affordable housing", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "help", "title": " ", "to": "climate community", "weight": 1}, {"arrows": "to", "color": null, "from": "proposal", "hidden": false, "label": "take", "title": " ", "to": "climate change consideration", "weight": 1}, {"arrows": "to", "color": null, "from": "people", "hidden": false, "label": "afford", "title": " ", "to": "housing", "weight": 3}, {"arrows": "to", "color": null, "from": "people", "hidden": false, "label": "lose", "title": " ", "to": "job", "weight": 2}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "increase", "title": " ", "to": "population density", "weight": 2}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "provide", "title": " ", "to": "affordable housing", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "require", "title": " ", "to": "affordable housing", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "rent", "title": " ", "to": "cap", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "increase", "title": " ", "to": "densification", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "double", "title": " ", "to": "density exist neighborhood", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "protect", "title": " ", "to": "environment", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "cause", "title": " ", "to": "great population density", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "may", "title": " ", "to": "help young local people get housing", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "would", "title": " ", "to": "increase population density", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "bring", "title": " ", "to": "international investor", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "secure", "title": " ", "to": "increase wage housing ratio", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "attract", "title": " ", "to": "new type people", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "secure", "title": " ", "to": "job opportunity prosperity city", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "prefer", "title": " ", "to": "mixture residential business", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "increase", "title": " ", "to": "population", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "increase", "title": " ", "to": "population density staten island neighborhood", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "help", "title": " ", "to": "population plan", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "increase", "title": " ", "to": "rent price", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "reduce", "title": " ", "to": "rent value", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "help", "title": " ", "to": "settle boost small business activity", "weight": 1}, {"arrows": "to", "color": null, "from": "project", "hidden": false, "label": "help", "title": " ", "to": "young local people get housing", "weight": 1}, {"arrows": "to", "color": null, "from": "population density", "hidden": false, "label": "make", "title": " ", "to": "community crowd nice", "weight": 1}, {"arrows": "to", "color": null, "from": "population density", "hidden": false, "label": "need", "title": " ", "to": "grown small pace", "weight": 1}, {"arrows": "to", "color": null, "from": "profit investor national international", "hidden": false, "label": "jack", "title": " ", "to": "rent", "weight": 1}, {"arrows": "to", "color": null, "from": "profit company domestic international", "hidden": false, "label": "put", "title": " ", "to": "building", "weight": 1}, {"arrows": "to", "color": null, "from": "profit company domestic international", "hidden": false, "label": "create", "title": " ", "to": "kind incentive neighborhood", "weight": 1}, {"arrows": "to", "color": null, "from": "profit group", "hidden": false, "label": "influence", "title": " ", "to": "neighborhood change", "weight": 1}, {"arrows": "to", "color": null, "from": "profit housing international national", "hidden": false, "label": "need", "title": " ", "to": "rent cap less rent increase attach building", "weight": 1}, {"arrows": "to", "color": null, "from": "profit investor", "hidden": false, "label": "handle", "title": " ", "to": "development", "weight": 1}, {"arrows": "to", "color": null, "from": "profit investor", "hidden": false, "label": "accommodates", "title": " ", "to": "much need social housing", "weight": 1}, {"arrows": "to", "color": null, "from": "profit investor", "hidden": false, "label": "need", "title": " ", "to": "social housing", "weight": 1}, {"arrows": "to", "color": null, "from": "add crime homeless people", "hidden": false, "label": "invade", "title": " ", "to": "neighborhood", "weight": 1}, {"arrows": "to", "color": null, "from": "profit organisation", "hidden": false, "label": "neglect", "title": " ", "to": "concern issue tenant may", "weight": 1}, {"arrows": "to", "color": null, "from": "profit organisation", "hidden": false, "label": "inclined", "title": " ", "to": "neglect concern issue tenant may", "weight": 1}, {"arrows": "to", "color": null, "from": "profit", "hidden": false, "label": "control", "title": " ", "to": "issue", "weight": 1}, {"arrows": "to", "color": null, "from": "profit", "hidden": false, "label": "reduces", "title": " ", "to": "increase density", "weight": 1}, {"arrows": "to", "color": null, "from": "profitable investment", "hidden": false, "label": "benefit", "title": " ", "to": "resident", "weight": 1}, {"arrows": "to", "color": null, "from": "pro", "hidden": false, "label": "meaning", "title": " ", "to": "never perfect solution", "weight": 1}, {"arrows": "to", "color": null, "from": "population", "hidden": false, "label": "rent", "title": " ", "to": "control", "weight": 1}, {"arrows": "to", "color": null, "from": "population", "hidden": false, "label": "cause", "title": " ", "to": "massive strain facility doctor", "weight": 1}, {"arrows": "to", "color": null, "from": "policy", "hidden": false, "label": "encourages", "title": " ", "to": "people", "weight": 1}, {"arrows": "to", "color": null, "from": "policy", "hidden": false, "label": "impressed", "title": " ", "to": "lot", "weight": 1}, {"arrows": "to", "color": null, "from": "politician", "hidden": false, "label": "want", "title": " ", "to": "get money tax", "weight": 1}, {"arrows": "to", "color": null, "from": "politician", "hidden": false, "label": "decide", "title": " ", "to": "happens", "weight": 1}, {"arrows": "to", "color": null, "from": "politician", "hidden": false, "label": "get", "title": " ", "to": "money", "weight": 1}, {"arrows": "to", "color": null, "from": "pollution", "hidden": false, "label": "push", "title": " ", "to": "long time resident", "weight": 1}, {"arrows": "to", "color": null, "from": "pollution", "hidden": false, "label": "destroys", "title": " ", "to": "make neighborhood special", "weight": 1}, {"arrows": "to", "color": null, "from": "poor", "hidden": false, "label": "afford", "title": " ", "to": "new development would go rich people", "weight": 1}, {"arrows": "to", "color": null, "from": "poor people", "hidden": false, "label": "pay", "title": " ", "to": "expansive rent", "weight": 1}, {"arrows": "to", "color": null, "from": "poor people", "hidden": false, "label": "need", "title": " ", "to": "lot service", "weight": 1}, {"arrows": "to", "color": null, "from": "poorer people", "hidden": false, "label": "need", "title": " ", "to": "help", "weight": 1}, {"arrows": "to", "color": null, "from": "poorer residence", "hidden": false, "label": "obtain", "title": " ", "to": "housing", "weight": 1}, {"arrows": "to", "color": null, "from": "population density increase already crowd area", "hidden": false, "label": "cause", "title": " ", "to": "major issue", "weight": 1}, {"arrows": "to", "color": null, "from": "population increase percent", "hidden": false, "label": "bring", "title": " ", "to": "cost", "weight": 1}, {"arrows": "to", "color": null, "from": "population mix", "hidden": false, "label": "give", "title": " ", "to": "proximity large mosque", "weight": 1}, {"arrows": "to", "color": null, "from": "positive", "hidden": false, "label": "outweigh", "title": " ", "to": "negative", "weight": 1}, {"arrows": "to", "color": null, "from": "poverty", "hidden": false, "label": "push", "title": " ", "to": "people", "weight": 1}, {"arrows": "to", "color": null, "from": "prefer", "hidden": false, "label": "prefer", "title": " ", "to": "minimal growth density", "weight": 1}, {"arrows": "to", "color": null, "from": "presence apartment company cafe", "hidden": false, "label": "provide", "title": " ", "to": "job opportunity", "weight": 1}, {"arrows": "to", "color": null, "from": "presumably nonprofit financier", "hidden": false, "label": "make", "title": " ", "to": "housing available", "weight": 1}, {"arrows": "to", "color": null, "from": "presumably nonprofit financier", "hidden": false, "label": "maximize", "title": " ", "to": "profit", "weight": 1}, {"arrows": "to", "color": null, "from": "project make building high density", "hidden": false, "label": "provide", "title": " ", "to": "adequate parking", "weight": 1}, {"arrows": "to", "color": null, "from": "project concept neighborhood", "hidden": false, "label": "reduce", "title": " ", "to": "value apartment", "weight": 1}, {"arrows": "to", "color": null, "from": "project like", "hidden": false, "label": "bring", "title": " ", "to": "traffic", "weight": 1}, {"arrows": "to", "color": null, "from": "property", "hidden": false, "label": "find", "title": " ", "to": "market clearing price", "weight": 1}, {"arrows": "to", "color": null, "from": "property owner", "hidden": false, "label": "find", "title": " ", "to": "loophole", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+        network.on("stabilizationProgress", function(params) {
+      		document.getElementById('loadingBar').removeAttribute("style");
+	        var maxWidth = 496;
+	        var minWidth = 20;
+	        var widthFactor = params.iterations/params.total;
+	        var width = Math.max(minWidth,maxWidth * widthFactor);
+
+	        document.getElementById('bar').style.width = width + 'px';
+	        document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+	    });
+	    network.once("stabilizationIterationsDone", function() {
+	        document.getElementById('text').innerHTML = '100%';
+	        document.getElementById('bar').style.width = '496px';
+	        document.getElementById('loadingBar').style.opacity = 0;
+	        // really clean the dom element
+	        setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+	    });
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
