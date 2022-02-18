@@ -29,6 +29,13 @@ This folder contains datasets to run the code on and also ones related to the ou
 # Setup 
 To run any of the notebooks, first set up a virtual environment with conda (python=3.8.12) using the environment urban_nlp_env.yml file in this github repository.
 
+Then run in the terminal: 
+
+```
+conda env create --file urban_nlp_env.yml
+conda activate urban_nlp_env
+```
+
 # Other useful links and resources:
 
 ## Subject area
