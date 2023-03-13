@@ -281,4 +281,3 @@ dependencies:
     - yaspin==2.1.0
     - zc-lockfile==2.0
     - zipp==3.7.0
-prefix: /Users/emilyrobitschek/opt/anaconda3/envs/relatio_env
